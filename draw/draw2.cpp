@@ -402,10 +402,68 @@ void tworzenie_czlowieka(HDC hdc)
 	}
 }
 
+int kierunek_windy(int p, int l)
+{
+	if (p > l)
+		return -1;
+	if (p < l)
+		return 1;
+	if (p == l)
+		return 0;
+}
+
+void ruch_windy(HDC hdc, RECT* rect)
+{
+	if (!ruchwindy.empty())
+	{
+		if (winda_s.pietro == ruchwindy[0].pietro)
+		{
+			if (ruchwindy[0].zatrzymanie == 1)
+			{
+				winda_s.kierunek = 0;
+				if (!w_windzie.empty() || !oczekiwanie_winda.empty())
+					dzialanie_windy = 2;
+				else
+					dzialanie_windy = 0;
+			}
+			ruchwindy.erase(ruchwindy.begin());
+		}
+		else
+		{
+			if (winda_s.pietro < ruchwindy[0].pietro)
+			{
+				wartosc++;
+				for (int i = 0; i < w_windzie.size(); i++)
+				{
+					w_windzie[i].y--;
+				}
+				winda_s.kierunek = 1;
+			}
+			if (winda_s.pietro > ruchwindy[0].pietro)
+			{
+				wartosc--;
+				for (int i = 0; i < w_windzie.size(); i++)
+				{
+					w_windzie[i].y++;
+				}
+				winda_s.kierunek = -1;
+			}
+			if (wartosc % 150 == 0)
+			{
+				winda_s.pietro = winda_s.pietro + ruchwindy[0].kierunek;
+			}
+		}
+	}
+	zarys_windy(hdc, &winda_m);
+	tworzenie_czlowieka(hdc);
+}
+
 void ustaw_winda()
 {
 	int a;
 }
+
+
 
 void MyOnPaint(HDC hdc)
 {
@@ -785,44 +843,84 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		switch (wmId)
 		{
 		case ID_BUTTON01:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON02:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON03:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON04:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON10:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON12:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON13:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON14:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON20:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON21:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON23:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON24:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON30:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON31:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON32:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON34:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON40:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON41:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON42:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		case ID_BUTTON43:
+			hdc = BeginPaint(hWnd, &ps);
+			tworzenie_czlowieka(hdc);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);

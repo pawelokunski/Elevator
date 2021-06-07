@@ -31,7 +31,7 @@ struct winda
 
 winda winda_s = { 0, 0, 1 };          //poczatkowo winda jest na pierwszym pietrze, nie rusza sie
 
-
+vector<winda> ruchwindy;
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
@@ -84,6 +84,9 @@ INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	Buttons(HWND, UINT, WPARAM, LPARAM);
 
 void przesuwanie();
+void ustaw_winda();
+void tworzenie_czlowieka(HDC hdc);
+
 
 void zarys_windy(HDC hdc, RECT* rect)
 {
@@ -215,6 +218,75 @@ void przesuwanie()
 		wartosc4 = wartosc4 - ilosc * 25;
 		break;
 	}
+}
+
+void bez_ruchu()
+{
+	koniec = false;
+	if (winda_s.pietro != 0)
+	{
+		if (kolejka.empty())
+			zmienna++;
+		else
+			koniec = true;
+	}
+	if (zmienna == 300)
+	{
+		for (int i = winda_s.pietro; i > -1; i--)
+		{
+			if (i != 0)
+			{
+				ruchwindy.push_back({ i, -1, 0 });
+			}
+			else
+			{
+				ruchwindy.push_back({ i, -1, 1 });
+			}
+		}
+		koniec = true;
+	}
+	if (winda_s.pietro == 0 && !kolejka.empty())
+	{
+		koniec = true;
+		ustaw_winda();
+	}
+}
+
+void przesuwanie2()
+{
+	int p;
+	int ile = 0;
+	if (!kolejka.empty())
+	{
+		for (int i = 0; i < kolejka.size(); i++)
+		{
+			if (kolejka[i].pietro_poczatkowe == winda_s.pietro)
+			{
+				p = 0;
+				for (int j = 0; j < i; j++)
+				{
+					if (kolejka[j].pietro_poczatkowe == kolejka[i].pietro_poczatkowe)
+						p++;
+				}
+				if (kolejka[i].x != 575 - p * 25)
+				{
+					kolejka[i].x = kolejka[i].x + 5;
+					ile++;
+				}
+			}
+		}
+	}
+	if (!ile)
+	{
+		dzialanie_windy = 4;
+		koniec = false;
+		ilosc = 0;
+	}
+}
+
+void ustaw_winda()
+{
+	int a;
 }
 
 void MyOnPaint(HDC hdc)

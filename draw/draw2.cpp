@@ -32,9 +32,9 @@ void MyOnPaint(HDC hdc)
 	Pen pen(Color(255, 0, 0, 255), 2);
 	graphics.DrawRectangle(&pen, 600, 10, 250, 750);
 	graphics.DrawLine(&pen, 100, 755, 600, 755);
-	graphics.DrawLine(&pen, 850, 605, 1350, 605);
+	graphics.DrawLine(&pen, 100, 605, 600, 605);
 	graphics.DrawLine(&pen, 100, 455, 600, 455);
-	graphics.DrawLine(&pen, 850, 305, 1350, 305);
+	graphics.DrawLine(&pen, 100, 305, 600, 305);
 	graphics.DrawLine(&pen, 100, 155, 600, 155);
 }
 
@@ -163,7 +163,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("1"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 730,                                  // the left and top co-ordinates
+		10, 700,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON01,                   // the ID of your button
@@ -172,7 +172,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("2"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 700,                                  // the left and top co-ordinates
+		10, 670,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON02,                   // the ID of your button
@@ -181,7 +181,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("3"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 670,                                  // the left and top co-ordinates
+		10, 640,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON03,                   // the ID of your button
@@ -190,7 +190,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("4"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 640,                                  // the left and top co-ordinates
+		10, 610,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON04,                   // the ID of your button
@@ -199,7 +199,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("0"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 420,                                  // the left and top co-ordinates
+		10, 430,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON20,                   // the ID of your button
@@ -208,7 +208,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("1"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 390,                                  // the left and top co-ordinates
+		10, 400,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON21,                   // the ID of your button
@@ -217,7 +217,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("3"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 330,                                  // the left and top co-ordinates
+		10, 340,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON23,                   // the ID of your button
@@ -226,7 +226,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("4"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 300,                                  // the left and top co-ordinates
+		10, 310,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON24,                   // the ID of your button
@@ -235,7 +235,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("0"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 140,                                  // the left and top co-ordinates
+		10, 130,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON40,                   // the ID of your button
@@ -244,7 +244,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("1"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 110,                                  // the left and top co-ordinates
+		10, 100,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON41,                   // the ID of your button
@@ -253,7 +253,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("2"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 80,                                  // the left and top co-ordinates
+		10, 70,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON42,                   // the ID of your button
@@ -262,7 +262,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("3"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		10, 50,                                  // the left and top co-ordinates
+		10, 40,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON43,                   // the ID of your button
@@ -271,7 +271,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("0"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 580,                                  // the left and top co-ordinates
+		10, 580,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON10,                   // the ID of your button
@@ -280,7 +280,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("2"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 520,                                  // the left and top co-ordinates
+		10, 520,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON12,                   // the ID of your button
@@ -289,7 +289,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("3"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 490,                                  // the left and top co-ordinates
+		10, 490,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON13,                   // the ID of your button
@@ -298,7 +298,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("4"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 460,                                  // the left and top co-ordinates
+		10, 460,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON14,                   // the ID of your button
@@ -307,7 +307,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("0"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 280,                                  // the left and top co-ordinates
+		10, 280,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON30,                   // the ID of your button
@@ -316,7 +316,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("1"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 250,                                  // the left and top co-ordinates
+		10, 250,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON31,                   // the ID of your button
@@ -325,7 +325,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("2"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 220,                                  // the left and top co-ordinates
+		10, 220,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON32,                   // the ID of your button
@@ -334,7 +334,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"),                      // The class name required is button
 		TEXT("4"),                  // the caption of the button
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,  // the styles
-		1440, 160,                                  // the left and top co-ordinates
+		10, 160,                                  // the left and top co-ordinates
 		25, 25,                              // width and height
 		hWnd,                                 // parent window handle
 		(HMENU)ID_BUTTON34,                   // the ID of your button
@@ -383,11 +383,45 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// Parse the menu selections:
 		switch (wmId)
 		{
-		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+		case ID_BUTTON01:
 			break;
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
+		case ID_BUTTON02:
+			break;
+		case ID_BUTTON03:
+			break;
+		case ID_BUTTON04:
+			break;
+		case ID_BUTTON10:
+			break;
+		case ID_BUTTON12:
+			break;
+		case ID_BUTTON13:
+			break;
+		case ID_BUTTON14:
+			break;
+		case ID_BUTTON20:
+			break;
+		case ID_BUTTON21:
+			break;
+		case ID_BUTTON23:
+			break;
+		case ID_BUTTON24:
+			break;
+		case ID_BUTTON30:
+			break;
+		case ID_BUTTON31:
+			break;
+		case ID_BUTTON32:
+			break;
+		case ID_BUTTON34:
+			break;
+		case ID_BUTTON40:
+			break;
+		case ID_BUTTON41:
+			break;
+		case ID_BUTTON42:
+			break;
+		case ID_BUTTON43:
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);

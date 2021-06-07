@@ -17,6 +17,11 @@ struct czlowiek
 	int y;
 };
 
+vector<czlowiek> kolejka;
+vector<czlowiek> w_windzie;
+vector<czlowiek> oczekiwanie_winda;
+
+
 struct winda
 {
 	int pietro;
@@ -24,7 +29,7 @@ struct winda
 	bool zatrzymanie;
 };
 
-
+winda winda_s = { 0, 0, 1 };          //poczatkowo winda jest na pierwszym pietrze, nie rusza sie
 
 
 
@@ -33,10 +38,32 @@ HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 
-INT value;
+int wartosc = 0;
+int wartosc0 = 0;
+int wartosc1 = 0;
+int wartosc2 = 0;
+int wartosc3 = 0;
+int wartosc4 = 0;
+int zmienna = 0;
+int ilosc = 0;
+bool koniec;
 
 // buttons
 HWND hwndButton;
+
+RECT winda_m = { 603, 13, 847, 759 };
+
+RECT pietro_0_winda = { 100, 680, 840, 750 };
+RECT pietro_1_winda = { 100, 530, 840, 600 };
+RECT pietro_2_winda = { 100, 380, 840, 450 };
+RECT pietro_3_winda = { 100, 230, 840, 300 };
+RECT pietro_4_winda = { 100, 80, 840, 150 };
+
+RECT pietro_0 = { 100, 680, 590, 750 };
+RECT pietro_1 = { 100, 530, 590, 600 };
+RECT pietro_2 = { 100, 380, 590, 450 };
+RECT pietro_3 = { 100, 230, 590, 300 };
+RECT pietro_4 = { 100, 80, 590, 150 };
 
 
 // Forward declarations of functions included in this code module:
@@ -45,6 +72,19 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	Buttons(HWND, UINT, WPARAM, LPARAM);
+
+
+void zarys_windy(HDC hdc, RECT* rect)
+{
+	Graphics graphics(hdc);
+	Pen pen1(Color(255, 255, 0, 0), 3);
+	GraphicsPath path;
+	path.AddLine(603, 645 - wartosc, 844, 645 - wartosc);
+	path.AddLine(844, 645 - wartosc, 844, 755 - wartosc);
+	path.AddLine(603, 755 - wartosc, 844, 755 - wartosc);
+	graphics.DrawPath(&pen1, &path);
+}
+
 
 
 void MyOnPaint(HDC hdc)
@@ -107,8 +147,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// TODO: Place code here.
 	MSG msg;
 	HACCEL hAccelTable;
-
-	value = 0;
 
 	GdiplusStartupInput gdiplusStartupInput;
 	ULONG_PTR           gdiplusToken;

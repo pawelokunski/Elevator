@@ -52,6 +52,12 @@ bool wolne = false;
 bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 int miejsce[8] = { 610, 630, 650, 670, 690, 710, 730, 750 };
 
+int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
+								// 1 - ruch
+								// 2 - otwieranie drzwi
+								// 3 - stoi z otwartymi drzwiami
+								// 4 - zamykanie drzwi
+
 // buttons
 HWND hwndButton;
 
@@ -77,6 +83,7 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	Buttons(HWND, UINT, WPARAM, LPARAM);
 
+void przesuwanie();
 
 void zarys_windy(HDC hdc, RECT* rect)
 {
@@ -131,6 +138,82 @@ void ruch_ludzi(HDC hdc)
 				k++;
 		}
 		wolne = false;
+	}
+}
+
+void ruch_ludzi_2(HDC hdc)
+{
+	int p = 0;
+	bool jest;
+	if (!oczekiwanie_winda.empty())
+	{
+		int k = 0;
+		while (!oczekiwanie_winda.empty() && k < oczekiwanie_winda.size())
+		{
+			jest = false;
+			if (oczekiwanie_winda[k].pietro_poczatkowe == winda_s.pietro)
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					if (!zajete[j])
+					{
+						if (oczekiwanie_winda[k].x == miejsce[j])
+						{
+							zajete[j] = 1;
+							w_windzie.push_back(oczekiwanie_winda[k]);
+							oczekiwanie_winda.erase(oczekiwanie_winda.begin() + k);
+							jest = true;
+						}
+						else
+						{
+							oczekiwanie_winda[k].x = oczekiwanie_winda[k].x + 5;
+							p++;
+						}
+						break;
+					}
+				}
+			}
+			if (!jest)
+				k++;
+		}
+	}
+	if (p == 0 && !ilosc)
+	{
+		przesuwanie();
+		if (ilosc == 0)
+		{
+			dzialanie_windy = 4;
+			koniec = false;
+		}
+	}
+
+}
+
+void przesuwanie()
+{
+	ilosc = 0;
+	for (int i = 0; i < w_windzie.size(); i++)
+	{
+		if (w_windzie[i].pietro_poczatkowe == winda_s.pietro)
+			ilosc++;
+	}
+	switch (winda_s.pietro)
+	{
+	case 0: 
+		wartosc0 = wartosc0 - ilosc * 25;
+		break;
+	case 1:
+		wartosc1 = wartosc1 - ilosc * 25;
+		break;
+	case 2:
+		wartosc2 = wartosc2 - ilosc * 25;
+		break;
+	case 3:
+		wartosc3 = wartosc3 - ilosc * 25;
+		break;
+	case 4:
+		wartosc4 = wartosc4 - ilosc * 25;
+		break;
 	}
 }
 

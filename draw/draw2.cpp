@@ -284,6 +284,73 @@ void przesuwanie2()
 	}
 }
 
+void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
+{
+	koniec = false;
+	if (a == 1)
+	{
+		Graphics graphics(hdc);
+		Pen pen(Color(255, 0, 0, 0), 2);
+		int y = 640 - winda_s.pietro * 150;
+		graphics.DrawLine(&pen, 600, y, 600, y + 110 - zmienna);
+		tworzenie_czlowieka(hdc);
+	}
+	else
+	{
+		Graphics graphics(hdc);
+		Pen pen(Color(255, 0, 0, 0), 2);
+		int y = 640 - winda_s.pietro * 150;
+		graphics.DrawLine(&pen, 600, y, 600, y + 110 - zmienna);
+		tworzenie_czlowieka(hdc);
+	}
+	if (zmienna == 110)
+		koniec = true;
+}
+
+void wsiadanie(HDC hdc)
+{
+	switch (winda_s.pietro)
+	{
+	case 0:
+		otwieranie_zamykanie(hdc, &pietro_0_winda, -1);
+		break;
+	case 1:
+		otwieranie_zamykanie(hdc, &pietro_1_winda, -1);
+		break;
+	case 2:
+		otwieranie_zamykanie(hdc, &pietro_2_winda, -1);
+		break;
+	case 3:
+		otwieranie_zamykanie(hdc, &pietro_3_winda, -1);
+		break;
+	case 4:
+		otwieranie_zamykanie(hdc, &pietro_4_winda, -1);
+		break;
+	}
+}
+
+void zamykanie(HDC hdc)
+{
+	switch (winda_s.pietro)
+	{
+	case 0:
+		otwieranie_zamykanie(hdc, &pietro_0_winda, 1);
+		break;
+	case 1:
+		otwieranie_zamykanie(hdc, &pietro_1_winda, 1);
+		break;
+	case 2:
+		otwieranie_zamykanie(hdc, &pietro_2_winda, 1);
+		break;
+	case 3:
+		otwieranie_zamykanie(hdc, &pietro_3_winda, 1);
+		break;
+	case 4:
+		otwieranie_zamykanie(hdc, &pietro_4_winda, 1);
+		break;
+	}
+}
+
 void ustaw_winda()
 {
 	int a;

@@ -48,6 +48,10 @@ int zmienna = 0;
 int ilosc = 0;
 bool koniec;
 
+bool wolne = false;
+bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+int miejsce[8] = { 610, 630, 650, 670, 690, 710, 730, 750 };
+
 // buttons
 HWND hwndButton;
 
@@ -85,7 +89,50 @@ void zarys_windy(HDC hdc, RECT* rect)
 	graphics.DrawPath(&pen1, &path);
 }
 
-
+void ruch_ludzi(HDC hdc)
+{
+	int p;
+	if (!wolne)
+	{
+		for (int i = 0; i < w_windzie.size(); i++)
+		{
+			if (w_windzie[i].pietro_koncowe == winda_s.pietro)
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					if (w_windzie[i].x == miejsce[j])
+						zajete[j] = 0;
+				}
+			}
+		}
+		wolne = true;
+	}
+	if (w_windzie.empty())
+	{
+		p = 0;
+		for (int i = 0; i < w_windzie.size(); i++)
+		{
+			if (w_windzie[i].pietro_koncowe == winda_s.pietro && w_windzie[i].x > 50)
+			{
+				w_windzie[i].x = w_windzie[i].x - 5;
+				p++;
+			}
+		}
+	}
+	int k = 0;
+	if (p == 0)
+	{
+		koniec = true;
+		while (!w_windzie.empty() && k < w_windzie.size())
+		{
+			if (w_windzie[k].pietro_koncowe == winda_s.pietro)
+				w_windzie.erase(w_windzie.begin() + k);
+			else
+				k++;
+		}
+		wolne = false;
+	}
+}
 
 void MyOnPaint(HDC hdc)
 {

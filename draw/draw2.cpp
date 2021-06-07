@@ -351,6 +351,57 @@ void zamykanie(HDC hdc)
 	}
 }
 
+void tworzenie_czlowieka(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen pen(Color(255, 255, 0, 0), 3);
+
+	for (int i = 0; i < kolejka.size(); i++)
+	{
+		SolidBrush solidBrush(Color(255, 0, 0, 0));
+		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 57, 8, 8);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 57, 8, 8);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 17, 4, 23);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 17, 4, 23);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
+	}
+
+	for (int i = 0; i < w_windzie.size(); i++)
+	{
+		SolidBrush solidBrush(Color(255, 0, 0, 0));
+		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 57, 8, 8);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 57, 8, 8);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 17, 4, 23);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 17, 4, 23);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
+	}
+
+	for (int i = 0; i < oczekiwanie_winda.size(); i++)
+	{
+		SolidBrush solidBrush(Color(255, 0, 0, 0));
+		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 57, 8, 8);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 57, 8, 8);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 17, 4, 23);
+		graphics.FillRectangle(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 17, 4, 23);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
+	}
+}
+
 void ustaw_winda()
 {
 	int a;

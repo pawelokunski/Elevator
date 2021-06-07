@@ -7,6 +7,27 @@
 
 #define MAX_LOADSTRING 100
 
+using namespace std;
+
+struct czlowiek
+{
+	int pietro_poczatkowe;
+	int pietro_koncowe;
+	int x;
+	int y;
+};
+
+struct winda
+{
+	int pietro;
+	int kierunek;
+	bool zatrzymanie;
+};
+
+
+
+
+
 // Global Variables:
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
@@ -36,6 +57,28 @@ void MyOnPaint(HDC hdc)
 	graphics.DrawLine(&pen, 100, 455, 600, 455);
 	graphics.DrawLine(&pen, 100, 305, 600, 305);
 	graphics.DrawLine(&pen, 100, 155, 600, 155);
+
+	FontFamily fontFamily(L"Arial");
+	Font font(&fontFamily, 60, FontStyleRegular, UnitPixel);
+	SolidBrush  solidBrush(Color(255, 0, 0, 0));
+	
+	PointF      pointF(50, 650);
+	graphics.DrawString(L"0", -1, &font, pointF, &solidBrush);
+	PointF      pointF1(50, 500);
+	graphics.DrawString(L"1", -1, &font, pointF1, &solidBrush);
+	PointF      pointF2(50, 350);
+	graphics.DrawString(L"2", -1, &font, pointF2, &solidBrush);
+	PointF      pointF3(50, 200);
+	graphics.DrawString(L"3", -1, &font, pointF3, &solidBrush);
+	PointF      pointF4(50, 50);
+	graphics.DrawString(L"4", -1, &font, pointF4, &solidBrush);
+
+	Pen pen1(Color(255, 255, 0, 0), 3);
+	GraphicsPath path;
+	path.AddLine(603, 645, 844, 645);
+	path.AddLine(844, 645, 844, 755);
+	path.AddLine(603, 755, 844, 755);
+	graphics.DrawPath(&pen1, &path);
 }
 
 void repaintWindow(HWND hWnd, HDC &hdc, PAINTSTRUCT &ps, RECT *drawArea)

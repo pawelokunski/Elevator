@@ -552,7 +552,94 @@ void ustaw_koniec(bool& ustawienie_konca, int i, int kier, int &k)
 
 void ustaw_winda()
 {
-	int a;
+	if (ruchwindy.empty() && !kolejka.empty())
+	{
+		if (kolejka[0].pietro_poczatkowe != winda_s.pietro)
+		{
+			if (kierunek_windy(winda_s.pietro, kolejka[0].pietro_poczatkowe) == 1)
+			{
+				for (int i = winda_s.pietro; i <= kolejka[0].pietro_poczatkowe; i++)
+				{
+					if (i != kolejka[0].pietro_poczatkowe)
+						ruchwindy.push_back({ i, 1, 0 });
+					else
+						ruchwindy.push_back({ i, -1, 1 });
+				}
+			}
+			if (kierunek_windy(winda_s.pietro, kolejka[0].pietro_poczatkowe) == -1)
+			{
+				for (int i = winda_s.pietro; i >= kolejka[0].pietro_poczatkowe; i--)
+				{
+					if (i != kolejka[0].pietro_poczatkowe)
+						ruchwindy.push_back({ i, -1, 0 });
+					else
+						ruchwindy.push_back({ i, -1, 1 });
+				}
+			}
+			if (dzialanie_windy == 0)
+			{
+				dzialanie_windy = 1;
+				zmienna = 0;
+			}
+		}
+
+		if (kierunek_windy(kolejka[0].pietro_poczatkowe, kolejka[0].pietro_koncowe) == 1)
+		{
+			for (int i = kolejka[0].pietro_poczatkowe; i <= kolejka[0].pietro_koncowe; i++)
+			{
+				if (i != kolejka[0].pietro_koncowe)
+					ruchwindy.push_back({ i, 1, 0 });
+				else
+				{
+					ruchwindy.push_back({ i, 1, 1 });
+					oczekiwanie_winda.push_back(kolejka[0]);
+				}
+			}
+		}
+		else
+		{
+			for (int i = kolejka[0].pietro_poczatkowe; i >= kolejka[0].pietro_koncowe; i--)
+			{
+				if (i != kolejka[0].pietro_koncowe)
+					ruchwindy.push_back({ i, -1, 0 });
+				else
+				{
+					ruchwindy.push_back({ i, -1, 1 });
+					oczekiwanie_winda.push_back(kolejka[0]);
+				}
+			}
+		}
+		if (dzialanie_windy == 0)
+		{
+			dzialanie_windy = 2;
+			zmienna = 0;
+		}
+		kolejka.erase(kolejka.begin());
+	}
+	else
+	{
+		if (!ruchwindy.empty() && !kolejka.empty())
+		{
+			int i = 0;
+			while (!kolejka.empty() && kolejka.size() > i)
+			{
+				int kier = kierunek_windy(kolejka[i].pietro_poczatkowe, kolejka[i].pietro_koncowe);
+				bool ustawienie_poczatku = false;
+				bool ustawienie_konca = false;
+				if (kier == ruchwindy[0].kierunek && w_windzie.size() + oczekiwanie_winda.size() < 8)
+				{
+					int k;
+					ustaw_koniec(ustawienie_konca, i, kier, k);
+					if (ustawienie_konca)
+						ustaw_poczatek(ustawienie_poczatku, i, kier, k);
+					if (!ustawienie_konca || !ustawienie_poczatku)
+						i++;
+				}
+				else
+					i++;
+			}
+		}
+	}
 }
 
 

@@ -6,6 +6,8 @@
 #include <vector>
 
 #define MAX_LOADSTRING 100
+#define TMR_w 128
+
 
 using namespace std;
 
@@ -664,6 +666,110 @@ void sterowanie(HDC hdc)
 	}
 }
 
+void tablice(HDC hdc, RECT* rect)
+{
+	Graphics graphics(hdc);
+	Pen pen(Color(255, 0, 0, 0), 2);
+	graphics.DrawRectangle(&pen, 900, 10, 50, 30);
+
+	FontFamily fontFamily(L"Arial");
+	Font font1(&fontFamily, 30, FontStyleRegular, UnitPixel);
+	PointF pointF1(930, 15);
+	SolidBrush solidBrush(Color(255, 0, 0, 0));
+
+	wchar_t pietro[2];
+	pietro[1] = '\0';
+	switch (winda_s.pietro)
+	{
+	case 0:
+		pietro[0] = '0';
+		break;
+	case 1:
+		pietro[0] = '1';
+		break;
+	case 2:
+		pietro[0] = '2';
+		break;
+	case 3:
+		pietro[0] = '3';
+		break;
+	case 4:
+		pietro[0] = '4';
+		break;
+	}
+	graphics.DrawString(pietro, -1, &font1, pointF1, &solidBrush);
+
+	switch (winda_s.kierunek)
+	{
+	case -1:
+		graphics.DrawLine(&pen, 910, 20, 915, 30);
+		graphics.DrawLine(&pen, 915, 30, 920, 20);
+		break;
+	case 0:
+		graphics.DrawLine(&pen, 910, 25, 920, 25);
+		break;
+	case 1:
+		graphics.DrawLine(&pen, 910, 30, 915, 20);
+		graphics.DrawLine(&pen, 915, 20, 920, 30);
+	}
+
+	graphics.DrawRectangle(&pen, 900, 50, 70, 50);
+	PointF pointF2(910, 52);
+	graphics.DrawString(L"Masa", -1, &font1, pointF2, &solidBrush);
+	PointF pointF3(910, 75);
+	wchar_t masa[4];
+	masa[3] = '\0';
+	switch (w_windzie.size())
+	{
+	case 0:
+		masa[0] = '0';
+		masa[1] = '0';
+		masa[2] = '0';
+		break;
+	case 1:
+		masa[0] = '0';
+		masa[1] = '7';
+		masa[2] = '0';
+		break;
+	case 2:
+		masa[0] = '1';
+		masa[1] = '4';
+		masa[2] = '0';
+		break;
+	case 3:
+		masa[0] = '2';
+		masa[1] = '1';
+		masa[2] = '0';
+		break;
+	case 4:
+		masa[0] = '2';
+		masa[1] = '8';
+		masa[2] = '0';
+		break;
+	case 5:
+		masa[0] = '3';
+		masa[1] = '5';
+		masa[2] = '0';
+		break;
+	case 6:
+		masa[0] = '4';
+		masa[1] = '2';
+		masa[2] = '0';
+		break;
+	case 7:
+		masa[0] = '4';
+		masa[1] = '9';
+		masa[2] = '0';
+		break;
+	case 8:
+		masa[0] = '5';
+		masa[1] = '6';
+		masa[2] = '0';
+		break;
+	}
+	graphics.DrawString(masa, -1, &font1, pointF3, &solidBrush);
+}
+
 void MyOnPaint(HDC hdc)
 {
 	Graphics graphics(hdc);
@@ -698,16 +804,10 @@ void MyOnPaint(HDC hdc)
 	graphics.DrawPath(&pen1, &path);
 }
 
-void repaintWindow(HWND hWnd, HDC &hdc, PAINTSTRUCT &ps, RECT *drawArea)
-{
-	
-}
-
-
-
 
 int OnCreate(HWND window)
 {
+	SetTimer(window, TMR_w, 10, 0);
 	return 0;
 }
 
@@ -1041,6 +1141,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// Parse the menu selections:
 		switch (wmId)
 		{
+		case IDM_ABOUT:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			break;
+		case IDM_EXIT:
+			DestroyWindow(hWnd);
+			break;
 		case ID_BUTTON01:
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);

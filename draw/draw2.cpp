@@ -458,6 +458,98 @@ void ruch_windy(HDC hdc, RECT* rect)
 	tworzenie_czlowieka(hdc);
 }
 
+
+void ustaw_poczatek(bool& ustawienie_poczatku, int i, int kier, int k)
+{
+	for (int j = k - 1; j > -1; j--)
+	{
+		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_poczatkowe <= ruchwindy[j].pietro)
+		{
+			if (kolejka[i].pietro_poczatkowe == ruchwindy[j].pietro)
+			{
+				if (j != 0 && ruchwindy[j - 1].pietro != ruchwindy[j].pietro)
+				{
+					ruchwindy[j].zatrzymanie = 1;
+				}
+				ruchwindy[k].zatrzymanie = 1;
+				oczekiwanie_winda.push_back(kolejka[i]);
+				kolejka.erase(kolejka.begin() + i);
+				ustawienie_poczatku = true;
+				break;
+			}
+		}
+		if (kier == ruchwindy[j].kierunek == -1 && kolejka[i].pietro_poczatkowe >= ruchwindy[j].pietro)
+		{
+			if (kolejka[i].pietro_poczatkowe == ruchwindy[j].pietro)
+			{
+				if (j != 0 && ruchwindy[j - 1].pietro != ruchwindy[j].pietro)
+				{
+					ruchwindy[j].zatrzymanie = 1;
+				}
+				ruchwindy[k].zatrzymanie = 1;
+				oczekiwanie_winda.push_back(kolejka[i]);
+				kolejka.erase(kolejka.begin() + i);
+				ustawienie_poczatku = true;
+				break;
+			}
+		}
+	}
+}
+
+void ustaw_koniec(bool& ustawienie_konca, int i, int kier, int &k)
+{
+	for (int j = ruchwindy.size() - 1; j > 0; j--)
+	{
+		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_koncowe <= ruchwindy[j].pietro)
+		{
+			if (kolejka[i].pietro_koncowe == ruchwindy[j].pietro)
+			{
+				ustawienie_konca = true;
+				k = j;
+				break;
+			}
+		}
+		if (kier == ruchwindy[j].kierunek == -1 && kolejka[i].pietro_koncowe >= ruchwindy[j].pietro)
+		{
+			if (kolejka[i].pietro_koncowe == ruchwindy[j].pietro)
+			{
+				ustawienie_konca = true;
+				k = j;
+				break;
+			}
+		}
+	}
+	int j = ruchwindy.size() - 1;
+	if (!ustawienie_konca && i == 0 && kier == ruchwindy[j].kierunek)
+	{
+		if (kier == 1)
+		{
+			for (int a = ruchwindy[j].pietro + 1; a <= kolejka[0].pietro_koncowe; a++)
+			{
+				if (a != kolejka[0].pietro_koncowe)
+					ruchwindy.push_back({ a, 1, 0 });
+				else
+					ruchwindy.push_back({ a, 1, 1 });
+			}
+			ustawienie_konca = true;
+			k = j;
+		}
+		else
+		{
+			for (int a = ruchwindy[j].pietro - 1; a >= kolejka[0].pietro_koncowe; a--)
+			{
+				if (a != kolejka[0].pietro_koncowe)
+					ruchwindy.push_back({ a, -1, 0 });
+				else
+					ruchwindy.push_back({ a, -1, 1 });
+			}
+			ustawienie_konca = true;
+			k = j;
+		}
+	}
+}
+
+
 void ustaw_winda()
 {
 	int a;

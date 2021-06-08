@@ -642,7 +642,27 @@ void ustaw_winda()
 	}
 }
 
-
+void sterowanie(HDC hdc)
+{
+	switch (dzialanie_windy)
+	{
+	case 0: 
+		bez_ruchu();
+		break;
+	case 1:
+		ruchwindy(hdc, &winda_m);
+		break;
+	case 2:
+		wsiadanie(hdc);
+		break;
+	case 3:
+		ruch_ludzi(hdc);
+		break;
+	case 4:
+		zamykanie(hdc);
+		break;
+	}
+}
 
 void MyOnPaint(HDC hdc)
 {

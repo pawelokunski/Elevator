@@ -650,7 +650,7 @@ void sterowanie(HDC hdc)
 		bez_ruchu();
 		break;
 	case 1:
-		ruchwindy(hdc, &winda_m);
+		ruch_windy(hdc, &winda_m);
 		break;
 	case 2:
 		wsiadanie(hdc);

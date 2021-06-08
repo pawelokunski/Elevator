@@ -1216,84 +1216,164 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DestroyWindow(hWnd);
 			break;
 		case ID_BUTTON01:
+			kolejka.push_back({ 0, 1 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_0, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON02:
+			kolejka.push_back({ 0, 2 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_0, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON03:
+			kolejka.push_back({ 0, 3 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_0, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON04:
+			kolejka.push_back({ 0, 4 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_0, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON10:
+			kolejka.push_back({ 1, 0 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_1, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON12:
+			kolejka.push_back({ 1, 2 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_1, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON13:
+			kolejka.push_back({ 1, 3 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_1, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON14:
+			kolejka.push_back({ 1, 4 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_1, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON20:
+			kolejka.push_back({ 2, 0 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_2, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON21:
+			kolejka.push_back({ 2, 1 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_2, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON23:
+			kolejka.push_back({ 2, 3 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_2, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON24:
+			kolejka.push_back({ 2, 4 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_2, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON30:
+			kolejka.push_back({ 3, 0 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_3, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON31:
+			kolejka.push_back({ 3, 1 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_3, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON32:
+			kolejka.push_back({ 3, 2 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_3, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON34:
+			kolejka.push_back({ 3, 4 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_3, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON40:
+			kolejka.push_back({ 4, 0 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_4, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON41:
+			kolejka.push_back({ 4, 1 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_4, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON42:
+			kolejka.push_back({ 4, 2 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_4, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		case ID_BUTTON43:
+			kolejka.push_back({ 4, 3 });
+			stworz_czlowieka();
+			InvalidateRect(hWnd, &pietro_4, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
 			tworzenie_czlowieka(hdc);
+			ustaw_winda();
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);

@@ -1,4 +1,4 @@
-// draw.cpp : Defines the entry point for the application.
+﻿// draw.cpp : Defines the entry point for the application.
 //
 
 #include "stdafx.h"
@@ -20,7 +20,7 @@ struct czlowiek
 };
 
 vector<czlowiek> kolejka;
-vector<czlowiek> w_windzie;
+vector<czlowiek> czlowiek_winda;
 vector<czlowiek> oczekiwanie_winda;
 
 
@@ -64,6 +64,7 @@ int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
 HWND hwndButton;
 
 RECT winda_m = { 603, 13, 847, 759 };
+RECT pietro_ruch_masa = { 880, 10, 1000, 150 };
 
 RECT pietro_0_winda = { 100, 680, 840, 750 };
 RECT pietro_1_winda = { 100, 530, 840, 600 };
@@ -71,11 +72,11 @@ RECT pietro_2_winda = { 100, 380, 840, 450 };
 RECT pietro_3_winda = { 100, 230, 840, 300 };
 RECT pietro_4_winda = { 100, 80, 840, 150 };
 
-RECT pietro_0 = { 100, 680, 590, 750 };
-RECT pietro_1 = { 100, 530, 590, 600 };
-RECT pietro_2 = { 100, 380, 590, 450 };
-RECT pietro_3 = { 100, 230, 590, 300 };
-RECT pietro_4 = { 100, 80, 590, 150 };
+RECT pietro_0 = { 100, 680, 599, 750 };
+RECT pietro_1 = { 100, 530, 599, 600 };
+RECT pietro_2 = { 100, 380, 599, 450 };
+RECT pietro_3 = { 100, 230, 599, 300 };
+RECT pietro_4 = { 100, 80, 599, 150 };
 
 
 // Forward declarations of functions included in this code module:
@@ -90,7 +91,7 @@ void ustaw_winda();
 void tworzenie_czlowieka(HDC hdc);
 
 
-void zarys_windy(HDC hdc, RECT* rect)
+void zarys_windy(HDC hdc, RECT *rect)
 {
 	Graphics graphics(hdc);
 	Pen pen1(Color(255, 255, 0, 0), 3);
@@ -103,30 +104,30 @@ void zarys_windy(HDC hdc, RECT* rect)
 
 void ruch_ludzi(HDC hdc)
 {
-	int p;
+	int p = 0;
 	if (!wolne)
 	{
-		for (int i = 0; i < w_windzie.size(); i++)
+		for (int i = 0; i < czlowiek_winda.size(); i++)
 		{
-			if (w_windzie[i].pietro_koncowe == winda_s.pietro)
+			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro)
 			{
-				for (int j = 0; j < 8; j++)
+				for (int j = 0; j < 10; j++)
 				{
-					if (w_windzie[i].x == miejsce[j])
+					if (czlowiek_winda[i].x == miejsce[j])
 						zajete[j] = 0;
 				}
 			}
 		}
 		wolne = true;
 	}
-	if (w_windzie.empty())
+	if (!czlowiek_winda.empty())
 	{
 		p = 0;
-		for (int i = 0; i < w_windzie.size(); i++)
+		for (int i = 0; i < czlowiek_winda.size(); i++)
 		{
-			if (w_windzie[i].pietro_koncowe == winda_s.pietro && w_windzie[i].x > 50)
+			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro && czlowiek_winda[i].x > 50)
 			{
-				w_windzie[i].x = w_windzie[i].x - 5;
+				czlowiek_winda[i].x -= 5;
 				p++;
 			}
 		}
@@ -135,10 +136,10 @@ void ruch_ludzi(HDC hdc)
 	if (p == 0)
 	{
 		koniec = true;
-		while (!w_windzie.empty() && k < w_windzie.size())
+		while (!czlowiek_winda.empty() && k < czlowiek_winda.size())
 		{
-			if (w_windzie[k].pietro_koncowe == winda_s.pietro)
-				w_windzie.erase(w_windzie.begin() + k);
+			if (czlowiek_winda[k].pietro_koncowe == winda_s.pietro)
+				czlowiek_winda.erase(czlowiek_winda.begin() + k);
 			else
 				k++;
 		}
@@ -158,14 +159,14 @@ void ruch_ludzi_2(HDC hdc)
 			jest = false;
 			if (oczekiwanie_winda[k].pietro_poczatkowe == winda_s.pietro)
 			{
-				for (int j = 0; j < 8; j++)
+				for (int j = 0; j < 10; j++)
 				{
 					if (!zajete[j])
 					{
 						if (oczekiwanie_winda[k].x == miejsce[j])
 						{
 							zajete[j] = 1;
-							w_windzie.push_back(oczekiwanie_winda[k]);
+							czlowiek_winda.push_back(oczekiwanie_winda[k]);
 							oczekiwanie_winda.erase(oczekiwanie_winda.begin() + k);
 							jest = true;
 						}
@@ -197,9 +198,9 @@ void ruch_ludzi_2(HDC hdc)
 void przesuwanie()
 {
 	ilosc = 0;
-	for (int i = 0; i < w_windzie.size(); i++)
+	for (int i = 0; i < czlowiek_winda.size(); i++)
 	{
-		if (w_windzie[i].pietro_poczatkowe == winda_s.pietro)
+		if (czlowiek_winda[i].pietro_poczatkowe == winda_s.pietro)
 			ilosc++;
 	}
 	switch (winda_s.pietro)
@@ -373,44 +374,46 @@ void tworzenie_czlowieka(HDC hdc)
 		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
 	}
 
-	for (int i = 0; i < w_windzie.size(); i++)
+	for (int i = 0; i < czlowiek_winda.size(); i++)
 	{
 		SolidBrush solidBrush(Color(255, 0, 0, 0));
-		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 57, 8, 8);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 57, 8, 8);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 17, 4, 23);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 17, 4, 23);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 38, 4, 4);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, czlowiek_winda[i].x, czlowiek_winda[i].y - 1, 16, 16);
+		graphics.FillRectangle(&solidBrush, czlowiek_winda[i].x - 1, czlowiek_winda[i].y + 17, 18, 26);
+		graphics.FillRectangle(&solidBrush, czlowiek_winda[i].x - 1, czlowiek_winda[i].y + 43, 8, 18);
+		graphics.FillRectangle(&solidBrush, czlowiek_winda[i].x + 9, czlowiek_winda[i].y + 43, 8, 18);
+		graphics.FillEllipse(&solidBrush, czlowiek_winda[i].x - 1, czlowiek_winda[i].y + 57, 8, 8);
+		graphics.FillEllipse(&solidBrush, czlowiek_winda[i].x + 9, czlowiek_winda[i].y + 57, 8, 8);
+		graphics.FillRectangle(&solidBrush, czlowiek_winda[i].x - 6, czlowiek_winda[i].y + 17, 4, 23);
+		graphics.FillRectangle(&solidBrush, czlowiek_winda[i].x + 18, czlowiek_winda[i].y + 17, 4, 23);
+		graphics.FillEllipse(&solidBrush, czlowiek_winda[i].x - 6, czlowiek_winda[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, czlowiek_winda[i].x + 18, czlowiek_winda[i].y + 38, 4, 4);
 	}
 
 	for (int i = 0; i < oczekiwanie_winda.size(); i++)
 	{
 		SolidBrush solidBrush(Color(255, 0, 0, 0));
-		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 57, 8, 8);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 57, 8, 8);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 17, 4, 23);
-		graphics.FillRectangle(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 17, 4, 23);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x - 6, kolejka[i].y + 38, 4, 4);
-		graphics.FillEllipse(&solidBrush, kolejka[i].x + 18, kolejka[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, oczekiwanie_winda[i].x, oczekiwanie_winda[i].y - 1, 16, 16);
+		graphics.FillRectangle(&solidBrush, oczekiwanie_winda[i].x - 1, oczekiwanie_winda[i].y + 17, 18, 26);
+		graphics.FillRectangle(&solidBrush, oczekiwanie_winda[i].x - 1, oczekiwanie_winda[i].y + 43, 8, 18);
+		graphics.FillRectangle(&solidBrush, oczekiwanie_winda[i].x + 9, oczekiwanie_winda[i].y + 43, 8, 18);
+		graphics.FillEllipse(&solidBrush, oczekiwanie_winda[i].x - 1, oczekiwanie_winda[i].y + 57, 8, 8);
+		graphics.FillEllipse(&solidBrush, oczekiwanie_winda[i].x + 9, oczekiwanie_winda[i].y + 57, 8, 8);
+		graphics.FillRectangle(&solidBrush, oczekiwanie_winda[i].x - 6, oczekiwanie_winda[i].y + 17, 4, 23);
+		graphics.FillRectangle(&solidBrush, oczekiwanie_winda[i].x + 18, oczekiwanie_winda[i].y + 17, 4, 23);
+		graphics.FillEllipse(&solidBrush, oczekiwanie_winda[i].x - 6, oczekiwanie_winda[i].y + 38, 4, 4);
+		graphics.FillEllipse(&solidBrush, oczekiwanie_winda[i].x + 18, oczekiwanie_winda[i].y + 38, 4, 4);
 	}
 }
 
-int kierunek_windy(int p, int l)
+int kierunek_windy(int a, int b)
 {
-	if (p > l)
+	if (a > b)
 		return -1;
-	if (p < l)
+
+	if (a < b)
 		return 1;
-	if (p == l)
+
+	if (a == b)
 		return 0;
 }
 
@@ -423,7 +426,7 @@ void ruch_windy(HDC hdc, RECT* rect)
 			if (ruchwindy[0].zatrzymanie == 1)
 			{
 				winda_s.kierunek = 0;
-				if (!w_windzie.empty() || !oczekiwanie_winda.empty())
+				if (!czlowiek_winda.empty() || !oczekiwanie_winda.empty())
 					dzialanie_windy = 2;
 				else
 					dzialanie_windy = 0;
@@ -435,18 +438,18 @@ void ruch_windy(HDC hdc, RECT* rect)
 			if (winda_s.pietro < ruchwindy[0].pietro)
 			{
 				wartosc++;
-				for (int i = 0; i < w_windzie.size(); i++)
+				for (int i = 0; i < czlowiek_winda.size(); i++)
 				{
-					w_windzie[i].y--;
+					czlowiek_winda[i].y--;
 				}
 				winda_s.kierunek = 1;
 			}
 			if (winda_s.pietro > ruchwindy[0].pietro)
 			{
 				wartosc--;
-				for (int i = 0; i < w_windzie.size(); i++)
+				for (int i = 0; i < czlowiek_winda.size(); i++)
 				{
-					w_windzie[i].y++;
+					czlowiek_winda[i].y++;
 				}
 				winda_s.kierunek = -1;
 			}
@@ -628,7 +631,7 @@ void ustaw_winda()
 				int kier = kierunek_windy(kolejka[i].pietro_poczatkowe, kolejka[i].pietro_koncowe);
 				bool ustawienie_poczatku = false;
 				bool ustawienie_konca = false;
-				if (kier == ruchwindy[0].kierunek && w_windzie.size() + oczekiwanie_winda.size() < 8)
+				if (kier == ruchwindy[0].kierunek && czlowiek_winda.size() + oczekiwanie_winda.size() < 8)
 				{
 					int k;
 					ustaw_koniec(ustawienie_konca, i, kier, k);
@@ -787,7 +790,7 @@ void tablice(HDC hdc, RECT* rect)
 	PointF pointF3(910, 75);
 	wchar_t masa[4];
 	masa[3] = '\0';
-	switch (w_windzie.size())
+	switch (czlowiek_winda.size())
 	{
 	case 0:
 		masa[0] = '0';
@@ -1381,7 +1384,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		// TODO: Add any drawing code here (not depend on timer, buttons)
 		MyOnPaint(hdc);
 		EndPaint(hWnd, &ps);
 		break;
@@ -1392,7 +1394,143 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_TIMER:
 		switch (wParam)
 		{
-		
+			case TMR_w:
+			{
+				switch (dzialanie_windy)
+				{
+				case 0:
+					hdc = BeginPaint(hWnd, &ps);
+					bez_ruchu();
+					if (koniec)
+					{
+						dzialanie_windy = 1;
+						zmienna = 0;
+						koniec = false;
+					}
+					break;
+				case 1:
+					zmienna = 0;
+					InvalidateRect(hWnd, &winda_m, TRUE);
+					hdc = BeginPaint(hWnd, &ps);
+					ruch_windy(hdc, &winda_m);
+					break;
+				case 2:
+					if (zmienna % 7 == 0)
+						ustaw_winda();
+					switch (winda_s.pietro)
+					{
+					case 0:
+						InvalidateRect(hWnd, &pietro_0_winda, TRUE);
+						break;
+					case 1:
+						InvalidateRect(hWnd, &pietro_1_winda, TRUE);
+						break;
+					case 2:
+						InvalidateRect(hWnd, &pietro_2_winda, TRUE);
+						break;
+					case 3:
+						InvalidateRect(hWnd, &pietro_3_winda, TRUE);
+						break;
+					case 4:
+						InvalidateRect(hWnd, &pietro_4_winda, TRUE);
+						break;
+					}
+					hdc = BeginPaint(hWnd, &ps);
+					tworzenie_czlowieka(hdc);
+					wsiadanie(hdc);
+					zmienna++;
+					if (koniec)
+					{
+						zmienna = 0;
+						koniec = false;
+						dzialanie_windy = 3;
+					}
+					break;
+				case 3:
+					switch (winda_s.pietro)
+					{
+					case 0:
+						InvalidateRect(hWnd, &pietro_0_winda, TRUE);
+						break;
+					case 1:
+						InvalidateRect(hWnd, &pietro_1_winda, TRUE);
+						break;
+					case 2:
+						InvalidateRect(hWnd, &pietro_2_winda, TRUE);
+						break;
+					case 3:
+						InvalidateRect(hWnd, &pietro_3_winda, TRUE);
+						break;
+					case 4:
+						InvalidateRect(hWnd, &pietro_4_winda, TRUE);
+						break;
+					}
+					hdc = BeginPaint(hWnd, &ps);
+					ruch_ludzi(hdc);
+					if (koniec)
+						ruch_ludzi_2(hdc);
+					if (ilosc && koniec)
+						przesuwanie2();
+					tworzenie_czlowieka(hdc);
+					break;
+				case 4:
+					if (zmienna % 7 == 0)
+						ustaw_winda();
+					switch (winda_s.pietro)
+					{
+					case 0:
+						InvalidateRect(hWnd, &pietro_0_winda, TRUE);
+						break;
+					case 1:
+						InvalidateRect(hWnd, &pietro_1_winda, TRUE);
+						break;
+					case 2:
+						InvalidateRect(hWnd, &pietro_2_winda, TRUE);
+						break;
+					case 3:
+						InvalidateRect(hWnd, &pietro_3_winda, TRUE);
+						break;
+					case 4:
+						InvalidateRect(hWnd, &pietro_4_winda, TRUE);
+						break;
+					}
+					hdc = BeginPaint(hWnd, &ps);
+					zamykanie(hdc);
+					zmienna++;
+					if (koniec)
+					{
+						zmienna = 0;
+						koniec = false;
+						if (ruchwindy.empty())
+							dzialanie_windy = 0;
+						else
+						{
+							bool jeszcze = false;
+							for (int i = 0; i < oczekiwanie_winda.size(); i++)
+							{
+								if (winda_s.pietro == oczekiwanie_winda[i].pietro_poczatkowe)
+								{
+									jeszcze = true;
+									break;
+								}
+							}
+							if (jeszcze)
+								dzialanie_windy = 2;
+							else
+								dzialanie_windy = 1;
+						}
+					}
+					break;
+				}
+
+				InvalidateRect(hWnd, &pietro_ruch_masa, TRUE);
+				hdc = BeginPaint(hWnd, &ps);
+				tablice(hdc, &pietro_ruch_masa);
+
+				ReleaseDC(hWnd, hdc);
+				EndPaint(hWnd, &ps);
+			}
+			break;
 		}
 
 	default:

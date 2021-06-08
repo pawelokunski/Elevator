@@ -666,6 +666,74 @@ void sterowanie(HDC hdc)
 	}
 }
 
+void stworz_czlowieka()
+{
+	for (int i = 0; i < kolejka.size(); i++)
+	{
+		if (kolejka[i].x == 0)
+		{
+			int p;
+			switch (kolejka[i].pietro_poczatkowe)
+			{
+			case 0:
+				p = wartosc0;
+				wartosc0 = wartosc0 + 25;
+				break;
+			case 1:
+				p = wartosc1;
+				wartosc1 = wartosc1 + 25;
+				break;
+			case 2:
+				p = wartosc2;
+				wartosc2 = wartosc2 + 25;
+				break;
+			case 3:
+				p = wartosc3;
+				wartosc3 = wartosc3 + 25;
+				break;
+			case 4:
+				p = wartosc4;
+				wartosc4= wartosc4 + 25;
+				break;
+			}
+			kolejka[i].x = 575 - p;
+			kolejka[i].y = 680 - 150 * kolejka[i].pietro_poczatkowe;
+		}
+	}
+	for (int i = 0; i < oczekiwanie_winda.size(); i++)
+	{
+		if (oczekiwanie_winda[i].x == 0)
+		{
+			int p;
+			switch (oczekiwanie_winda[i].pietro_poczatkowe)
+			{
+			case 0:
+				p = wartosc0;
+				wartosc0 = wartosc0 + 25;
+				break;
+			case 1:
+				p = wartosc1;
+				wartosc1 = wartosc1 + 25;
+				break;
+			case 2:
+				p = wartosc2;
+				wartosc2 = wartosc2 + 25;
+				break;
+			case 3:
+				p = wartosc3;
+				wartosc3 = wartosc3 + 25;
+				break;
+			case 4:
+				p = wartosc4;
+				wartosc4 = wartosc4 + 25;
+				break;
+			}
+			oczekiwanie_winda[i].x = 575 - p;
+			oczekiwanie_winda[i].y = 680 - 150 * oczekiwanie_winda[i].pietro_poczatkowe;
+		}
+	}
+}
+
 void tablice(HDC hdc, RECT* rect)
 {
 	Graphics graphics(hdc);

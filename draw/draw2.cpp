@@ -743,8 +743,8 @@ void tablice(HDC hdc, RECT* rect)
 	graphics.DrawRectangle(&pen, 900, 10, 50, 30);
 
 	FontFamily fontFamily(L"Arial");
-	Font font1(&fontFamily, 30, FontStyleRegular, UnitPixel);
-	PointF pointF1(930, 15);
+	Font font1(&fontFamily, 25, FontStyleRegular, UnitPixel);
+	PointF pointF1(925, 9);
 	SolidBrush solidBrush(Color(255, 0, 0, 0));
 
 	wchar_t pietro[2];
@@ -783,21 +783,21 @@ void tablice(HDC hdc, RECT* rect)
 		graphics.DrawLine(&pen, 915, 20, 920, 30);
 	}
 
-	graphics.DrawRectangle(&pen, 900, 50, 70, 50);
-	PointF pointF2(910, 52);
+	graphics.DrawRectangle(&pen, 900, 50, 80, 55);
+	PointF pointF2(907, 52);
 	graphics.DrawString(L"Masa", -1, &font1, pointF2, &solidBrush);
-	PointF pointF3(910, 75);
+	PointF pointF3(904, 75);
 	wchar_t masa[4];
 	masa[3] = '\0';
 	switch (czlowiek_winda.size())
 	{
 	case 0:
-		masa[0] = '0';
-		masa[1] = '0';
+		masa[0] = '-';
+		masa[1] = '-';
 		masa[2] = '0';
 		break;
 	case 1:
-		masa[0] = '0';
+		masa[0] = '-';
 		masa[1] = '7';
 		masa[2] = '0';
 		break;
@@ -838,6 +838,8 @@ void tablice(HDC hdc, RECT* rect)
 		break;
 	}
 	graphics.DrawString(masa, -1, &font1, pointF3, &solidBrush);
+	PointF pointF4(945, 75);
+	graphics.DrawString(L"kg", -1, &font1, pointF4, &solidBrush);
 }
 
 void MyOnPaint(HDC hdc)

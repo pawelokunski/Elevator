@@ -52,7 +52,7 @@ bool koniec;
 
 bool wolne = false;
 bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-int miejsce[8] = { 610, 630, 650, 670, 690, 710, 730, 750 };
+int miejsce[8] = { 610, 635, 660, 685, 710, 735, 755, 780 };
 
 int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
 								// 1 - ruch
@@ -111,7 +111,7 @@ void ruch_ludzi(HDC hdc)
 		{
 			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro)
 			{
-				for (int j = 0; j < 10; j++)
+				for (int j = 0; j < 8; j++)
 				{
 					if (czlowiek_winda[i].x == miejsce[j])
 						zajete[j] = 0;
@@ -159,7 +159,7 @@ void ruch_ludzi_2(HDC hdc)
 			jest = false;
 			if (oczekiwanie_winda[k].pietro_poczatkowe == winda_s.pietro)
 			{
-				for (int j = 0; j < 10; j++)
+				for (int j = 0; j < 8; j++)
 				{
 					if (!zajete[j])
 					{
@@ -235,7 +235,7 @@ void bez_ruchu()
 	}
 	if (zmienna == 300)
 	{
-		for (int i = winda_s.pietro; i > -1; i--)
+		for (int i = winda_s.pietro; i >= 0; i--)
 		{
 			if (i != 0)
 			{
@@ -257,7 +257,7 @@ void bez_ruchu()
 
 void przesuwanie2()
 {
-	int p;
+	int p = 0;
 	int ile = 0;
 	if (!kolejka.empty())
 	{
@@ -295,7 +295,7 @@ void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
 		Graphics graphics(hdc);
 		Pen pen(Color(255, 0, 0, 0), 2);
 		int y = 640 - winda_s.pietro * 150;
-		graphics.DrawLine(&pen, 600, y, 600, y + 110 - zmienna);
+		graphics.DrawLine(&pen, 600, y, 600, y + (zmienna));
 		tworzenie_czlowieka(hdc);
 	}
 	else
@@ -303,7 +303,7 @@ void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
 		Graphics graphics(hdc);
 		Pen pen(Color(255, 0, 0, 0), 2);
 		int y = 640 - winda_s.pietro * 150;
-		graphics.DrawLine(&pen, 600, y, 600, y + 110 - zmienna);
+		graphics.DrawLine(&pen, 600, y, 600, y + 110 - (zmienna));
 		tworzenie_czlowieka(hdc);
 	}
 	if (zmienna == 110)
@@ -1415,7 +1415,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					ruch_windy(hdc, &winda_m);
 					break;
 				case 2:
-					if (zmienna % 7 == 0)
+					if (zmienna % 9 == 0)
 						ustaw_winda();
 					switch (winda_s.pietro)
 					{
@@ -1474,7 +1474,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					tworzenie_czlowieka(hdc);
 					break;
 				case 4:
-					if (zmienna % 7 == 0)
+					if (zmienna % 9 == 0)
 						ustaw_winda();
 					switch (winda_s.pietro)
 					{

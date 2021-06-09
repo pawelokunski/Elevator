@@ -357,7 +357,6 @@ void zamykanie(HDC hdc)
 void tworzenie_czlowieka(HDC hdc)
 {
 	Graphics graphics(hdc);
-	Pen pen(Color(255, 255, 0, 0), 3);
 
 	for (int i = 0; i < kolejka.size(); i++)
 	{
@@ -466,7 +465,7 @@ void ruch_windy(HDC hdc, RECT* rect)
 
 void ustaw_poczatek(bool& ustawienie_poczatku, int i, int kier, int k)
 {
-	for (int j = k - 1; j > -1; j--)
+	for (int j = k - 1; j >= 0; j--)
 	{
 		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_poczatkowe <= ruchwindy[j].pietro)
 		{
@@ -568,7 +567,7 @@ void ustaw_winda()
 					if (i != kolejka[0].pietro_poczatkowe)
 						ruchwindy.push_back({ i, 1, 0 });
 					else
-						ruchwindy.push_back({ i, -1, 1 });
+						ruchwindy.push_back({ i, 1, 1 });
 				}
 			}
 			if (kierunek_windy(winda_s.pietro, kolejka[0].pietro_poczatkowe) == -1)

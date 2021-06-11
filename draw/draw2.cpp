@@ -293,7 +293,7 @@ void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
 	if (a == 1)
 	{
 		Graphics graphics(hdc);
-		Pen pen(Color(255, 0, 0, 0), 2);
+		Pen pen(Color(255, 0, 0, 255), 2);	//drzwi niebieskie jak winda
 		int y = 640 - winda_s.pietro * 150;
 		graphics.DrawLine(&pen, 600, y, 600, y + (zmienna));
 		tworzenie_czlowieka(hdc);
@@ -301,7 +301,7 @@ void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
 	else
 	{
 		Graphics graphics(hdc);
-		Pen pen(Color(255, 0, 0, 0), 2);
+		Pen pen(Color(255, 0, 0, 255), 2);
 		int y = 640 - winda_s.pietro * 150;
 		graphics.DrawLine(&pen, 600, y, 600, y + 110 - (zmienna));
 		tworzenie_czlowieka(hdc);
@@ -985,7 +985,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hInst = hInstance; // Store instance handle (of exe) in our global variable
 
 	// main window
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindow(szWindowClass, L"Winda", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, 1500, 850, NULL, NULL, hInstance, NULL);
 
 	// create button and store the handle                                                       

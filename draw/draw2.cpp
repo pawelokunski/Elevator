@@ -51,8 +51,8 @@ int ilosc = 0;
 bool koniec;
 
 bool wolne = false;
-bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-int miejsce[8] = { 610, 635, 660, 685, 710, 735, 755, 780 };
+bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };                   // 8 miejsc w windzie 
+int miejsce[8] = { 610, 635, 660, 685, 710, 735, 755, 780 };   // tablica intów, miejsca w windzie, czyli pomiędzy ludźmi w windzie jest 25 jednostek
 
 int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
 								// 1 - ruch
@@ -63,10 +63,10 @@ int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
 // buttons
 HWND hwndButton;
 
-RECT winda_m = { 603, 13, 847, 759 };
+RECT winda_m = { 603, 13, 847, 759 };              // winda_m to przestrzeń windy, niżej dla tablicy
 RECT pietro_ruch_masa = { 880, 10, 1000, 150 };
 
-RECT pietro_0_winda = { 100, 680, 840, 750 };
+RECT pietro_0_winda = { 100, 680, 840, 750 };           // przestrzeń pięter z windą i niżej bez windy
 RECT pietro_1_winda = { 100, 530, 840, 600 };
 RECT pietro_2_winda = { 100, 380, 840, 450 };
 RECT pietro_3_winda = { 100, 230, 840, 300 };
@@ -91,7 +91,7 @@ void ustaw_winda();
 void tworzenie_czlowieka(HDC hdc);
 
 
-void zarys_windy(HDC hdc, RECT *rect)
+void zarys_windy(HDC hdc, RECT *rect)     //   funkcja rysująca windę w ruchu
 {
 	Graphics graphics(hdc);
 	Pen pen1(Color(255, 255, 0, 0), 3);
@@ -107,13 +107,13 @@ void ruch_ludzi(HDC hdc)
 	int p = 0;
 	if (!wolne)
 	{
-		for (int i = 0; i < czlowiek_winda.size(); i++)
+		for (int i = 0; i < czlowiek_winda.size(); i++)        // opróżnianie windy
 		{
-			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro)
+			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro)    // piętro końcowe równe aktualnemu windy
 			{
-				for (int j = 0; j < 8; j++)
+				for (int j = 0; j < 8; j++)                          // do 8, bo 8 miejsc w windzie
 				{
-					if (czlowiek_winda[i].x == miejsce[j])
+					if (czlowiek_winda[i].x == miejsce[j])           // jeśli był człowiek na konkretnym miejscu, to je zwalnia
 						zajete[j] = 0;
 				}
 			}
@@ -123,20 +123,20 @@ void ruch_ludzi(HDC hdc)
 	if (!czlowiek_winda.empty())
 	{
 		p = 0;
-		for (int i = 0; i < czlowiek_winda.size(); i++)
+		for (int i = 0; i < czlowiek_winda.size(); i++)    
 		{
-			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro && czlowiek_winda[i].x > 50)
+			if (czlowiek_winda[i].pietro_koncowe == winda_s.pietro && czlowiek_winda[i].x > 99)  
 			{
-				czlowiek_winda[i].x -= 5;
+				czlowiek_winda[i].x -= 5;               // opuszczanie windy przez człowieka, kończy na 100x, co 5x zmniejszamy, im mniej tym wolniej
 				p++;
 			}
 		}
 	}
 	int k = 0;
-	if (p == 0)
+	if (p == 0)   
 	{
 		koniec = true;
-		while (!czlowiek_winda.empty() && k < czlowiek_winda.size())
+		while (!czlowiek_winda.empty() && k < czlowiek_winda.size())  // usuwamy człowieka, który opuścił windę z vectora
 		{
 			if (czlowiek_winda[k].pietro_koncowe == winda_s.pietro)
 				czlowiek_winda.erase(czlowiek_winda.begin() + k);
@@ -151,39 +151,39 @@ void ruch_ludzi_2(HDC hdc)
 {
 	int p = 0;
 	bool jest;
-	if (!oczekiwanie_winda.empty())
+	if (!oczekiwanie_winda.empty())       //  są ludzie oczekujący na windę, w trakcie jej otwierania
 	{
 		int k = 0;
 		while (!oczekiwanie_winda.empty() && k < oczekiwanie_winda.size())
 		{
 			jest = false;
-			if (oczekiwanie_winda[k].pietro_poczatkowe == winda_s.pietro)
+			if (oczekiwanie_winda[k].pietro_poczatkowe == winda_s.pietro)    // jeśli piętra się zgadzają
 			{
-				for (int j = 0; j < 8; j++)
+				for (int j = 0; j < 8; j++)       // 8 miejsc w windzie
 				{
-					if (!zajete[j])
+					if (!zajete[j])                
 					{
-						if (oczekiwanie_winda[k].x == miejsce[j])
+						if (oczekiwanie_winda[k].x == miejsce[j])           //  jeśli miejsce jest wolne, to wchodzi tam człowiek
 						{
-							zajete[j] = 1;
+							zajete[j] = 1;                                   // miejsce zajęte, człowiek staje się człowiekiem w windzie, a tego w oczekiwaniu wywalamy
 							czlowiek_winda.push_back(oczekiwanie_winda[k]);
 							oczekiwanie_winda.erase(oczekiwanie_winda.begin() + k);
 							jest = true;
 						}
 						else
 						{
-							oczekiwanie_winda[k].x = oczekiwanie_winda[k].x + 5;
+							oczekiwanie_winda[k].x = oczekiwanie_winda[k].x + 5;    // przesuwamy człowieka
 							p++;
 						}
 						break;
 					}
 				}
 			}
-			if (!jest)
+			if (!jest)       // jeśli piętra się nie zgadzają, to zwiększamy k
 				k++;
 		}
 	}
-	if (p == 0 && !ilosc)
+	if (p == 0 && !ilosc)     // przesuwamy ludzi, zamykamy windę
 	{
 		przesuwanie();
 		if (ilosc == 0)
@@ -195,12 +195,12 @@ void ruch_ludzi_2(HDC hdc)
 
 }
 
-void przesuwanie()
+void przesuwanie()               // dwie funkcje przesuwające, jeżeli wsiądzie 8 osób na piętrze, a jest wciąż więcej ich, to przesuwa ich do windy
 {
 	ilosc = 0;
 	for (int i = 0; i < czlowiek_winda.size(); i++)
 	{
-		if (czlowiek_winda[i].pietro_poczatkowe == winda_s.pietro)
+		if (czlowiek_winda[i].pietro_poczatkowe == winda_s.pietro)     // ile osób wsiadło
 			ilosc++;
 	}
 	switch (winda_s.pietro)
@@ -233,7 +233,7 @@ void bez_ruchu()
 		else
 			koniec = true;
 	}
-	if (zmienna == 300)
+	if (zmienna == 300)            // tu można ustalić, ile winda ma czekać, jeżeli jest pusta
 	{
 		for (int i = winda_s.pietro; i >= 0; i--)
 		{
@@ -248,14 +248,14 @@ void bez_ruchu()
 		}
 		koniec = true;
 	}
-	if (winda_s.pietro == 0 && !kolejka.empty())
+	if (winda_s.pietro == 0 && !kolejka.empty())     // jeżeli coś się w kolejce zadziało, to zaczyna się ruszać
 	{
 		koniec = true;
 		ustaw_winda();
 	}
 }
 
-void przesuwanie2()
+void przesuwanie2()                // druga funkcja przesuwająca ludzi w kolejce
 {
 	int p = 0;
 	int ile = 0;
@@ -263,23 +263,23 @@ void przesuwanie2()
 	{
 		for (int i = 0; i < kolejka.size(); i++)
 		{
-			if (kolejka[i].pietro_poczatkowe == winda_s.pietro)
+			if (kolejka[i].pietro_poczatkowe == winda_s.pietro)   // tylko wtedy, gdy ludzie mogli opuścić kolejkę
 			{
 				p = 0;
 				for (int j = 0; j < i; j++)
 				{
-					if (kolejka[j].pietro_poczatkowe == kolejka[i].pietro_poczatkowe)
+					if (kolejka[j].pietro_poczatkowe == kolejka[i].pietro_poczatkowe)   
 						p++;
 				}
 				if (kolejka[i].x != 575 - p * 25)
 				{
-					kolejka[i].x = kolejka[i].x + 5;
+					kolejka[i].x = kolejka[i].x + 5;        // przesuwamy co 5x
 					ile++;
 				}
 			}
 		}
 	}
-	if (!ile)
+	if (!ile)            // zamykamy drzwi
 	{
 		dzialanie_windy = 4;
 		koniec = false;
@@ -287,13 +287,13 @@ void przesuwanie2()
 	}
 }
 
-void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
+void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)     //  funkcja rysująca otwierające się i zamykające się drzwi
 {
 	koniec = false;
 	if (a == 1)
 	{
 		Graphics graphics(hdc);
-		Pen pen(Color(255, 0, 0, 0), 2);
+		Pen pen(Color(255, 0, 0, 255), 2);
 		int y = 640 - winda_s.pietro * 150;
 		graphics.DrawLine(&pen, 600, y, 600, y + (zmienna));
 		tworzenie_czlowieka(hdc);
@@ -301,16 +301,16 @@ void otwieranie_zamykanie(HDC hdc, RECT* rect, int a)
 	else
 	{
 		Graphics graphics(hdc);
-		Pen pen(Color(255, 0, 0, 0), 2);
+		Pen pen(Color(255, 0, 0, 255), 2);
 		int y = 640 - winda_s.pietro * 150;
 		graphics.DrawLine(&pen, 600, y, 600, y + 110 - (zmienna));
 		tworzenie_czlowieka(hdc);
 	}
-	if (zmienna == 110)
+	if (zmienna == 120)
 		koniec = true;
 }
 
-void wsiadanie(HDC hdc)
+void wsiadanie(HDC hdc)               // w zależności od pietra, funkcja rysuje otwieranie drzwi
 {
 	switch (winda_s.pietro)
 	{
@@ -332,7 +332,7 @@ void wsiadanie(HDC hdc)
 	}
 }
 
-void zamykanie(HDC hdc)
+void zamykanie(HDC hdc)      // zamykanie drzwi w zależności od pietra
 {
 	switch (winda_s.pietro)
 	{
@@ -354,14 +354,14 @@ void zamykanie(HDC hdc)
 	}
 }
 
-void tworzenie_czlowieka(HDC hdc)
+void tworzenie_czlowieka(HDC hdc)             //   obraz człowieka w win api, potrzebne są trzy razy, dla kolejki, dla ludzi w windzie i dla tych wchodzących
 {
 	Graphics graphics(hdc);
 
 	for (int i = 0; i < kolejka.size(); i++)
 	{
 		SolidBrush solidBrush(Color(255, 0, 0, 0));
-		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);
+		graphics.FillEllipse(&solidBrush, kolejka[i].x, kolejka[i].y - 1, 16, 16);    
 		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 17, 18, 26);
 		graphics.FillRectangle(&solidBrush, kolejka[i].x - 1, kolejka[i].y + 43, 8, 18);
 		graphics.FillRectangle(&solidBrush, kolejka[i].x + 9, kolejka[i].y + 43, 8, 18);
@@ -404,7 +404,7 @@ void tworzenie_czlowieka(HDC hdc)
 	}
 }
 
-int kierunek_windy(int a, int b)
+int kierunek_windy(int a, int b)          // wyznaczanie kierunku( 1 - w górę, 0 - stoi, -1 - w dół)
 {
 	if (a > b)
 		return -1;
@@ -422,7 +422,7 @@ void ruch_windy(HDC hdc, RECT* rect)
 	{
 		if (winda_s.pietro == ruchwindy[0].pietro)
 		{
-			if (ruchwindy[0].zatrzymanie == 1)
+			if (ruchwindy[0].zatrzymanie == 1)     // jeśli winda się zatrzymuje, jest ktoś w windzie, albo oczekuje, to otwieramy windę
 			{
 				winda_s.kierunek = 0;
 				if (!czlowiek_winda.empty() || !oczekiwanie_winda.empty())
@@ -434,7 +434,7 @@ void ruch_windy(HDC hdc, RECT* rect)
 		}
 		else
 		{
-			if (winda_s.pietro < ruchwindy[0].pietro)
+			if (winda_s.pietro < ruchwindy[0].pietro)  // winda się rusza, to w zależności człowiek ma y większy lub mniejszy 
 			{
 				wartosc++;
 				for (int i = 0; i < czlowiek_winda.size(); i++)
@@ -452,7 +452,7 @@ void ruch_windy(HDC hdc, RECT* rect)
 				}
 				winda_s.kierunek = -1;
 			}
-			if (wartosc % 150 == 0)
+			if (wartosc % 150 == 0)              // piętra są co 150 jednostek y, piętro windy wtedy rośnie o 1, lub maleje
 			{
 				winda_s.pietro = winda_s.pietro + ruchwindy[0].kierunek;
 			}
@@ -469,8 +469,8 @@ void ustaw_poczatek(bool& ustawienie_poczatku, int i, int kier, int k)
 	{
 		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_poczatkowe <= ruchwindy[j].pietro)
 		{
-			if (kolejka[i].pietro_poczatkowe == ruchwindy[j].pietro)
-			{
+			if (kolejka[i].pietro_poczatkowe == ruchwindy[j].pietro)     //   jeżeli przez jakieś piętro przejedziemy, a jest w kolejce
+			{																//  wrzucamy człowieka do windy
 				if (j != 0 && ruchwindy[j - 1].pietro != ruchwindy[j].pietro)
 				{
 					ruchwindy[j].zatrzymanie = 1;
@@ -504,9 +504,9 @@ void ustaw_koniec(bool& ustawienie_konca, int i, int kier, int &k)
 {
 	for (int j = ruchwindy.size() - 1; j > 0; j--)
 	{
-		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_koncowe <= ruchwindy[j].pietro)
+		if (kier == ruchwindy[j].kierunek == 1 && kolejka[i].pietro_koncowe <= ruchwindy[j].pietro)   // jeśli winda jedzie do góry i pietro koncowe w kolejce jest mniejsze niż piętro do którego zmierzamy
 		{
-			if (kolejka[i].pietro_koncowe == ruchwindy[j].pietro)
+			if (kolejka[i].pietro_koncowe == ruchwindy[j].pietro) 
 			{
 				ustawienie_konca = true;
 				k = j;
@@ -524,7 +524,7 @@ void ustaw_koniec(bool& ustawienie_konca, int i, int kier, int &k)
 		}
 	}
 	int j = ruchwindy.size() - 1;
-	if (!ustawienie_konca && i == 0 && kier == ruchwindy[j].kierunek)
+	if (!ustawienie_konca && i == 0 && kier == ruchwindy[j].kierunek)            // wrzucamy do wektora windy pietra, na których ma się zatrzymać
 	{
 		if (kier == 1)
 		{
@@ -558,7 +558,7 @@ void ustaw_winda()
 {
 	if (ruchwindy.empty() && !kolejka.empty())
 	{
-		if (kolejka[0].pietro_poczatkowe != winda_s.pietro)
+		if (kolejka[0].pietro_poczatkowe != winda_s.pietro)          // podjazd na piętro człowieka, w górę lub w dół
 		{
 			if (kierunek_windy(winda_s.pietro, kolejka[0].pietro_poczatkowe) == 1)
 			{
@@ -580,14 +580,14 @@ void ustaw_winda()
 						ruchwindy.push_back({ i, -1, 1 });
 				}
 			}
-			if (dzialanie_windy == 0)
+			if (dzialanie_windy == 0)      // winda ma zacząć się ruszać
 			{
 				dzialanie_windy = 1;
 				zmienna = 0;
 			}
 		}
 
-		if (kierunek_windy(kolejka[0].pietro_poczatkowe, kolejka[0].pietro_koncowe) == 1)
+		if (kierunek_windy(kolejka[0].pietro_poczatkowe, kolejka[0].pietro_koncowe) == 1)     // tutaj już wrzucamy do vectora piętra, na które zawozimy
 		{
 			for (int i = kolejka[0].pietro_poczatkowe; i <= kolejka[0].pietro_koncowe; i++)
 			{
@@ -615,14 +615,14 @@ void ustaw_winda()
 		}
 		if (dzialanie_windy == 0)
 		{
-			dzialanie_windy = 2;
+			dzialanie_windy = 2;          // winda ma otworzyć drzwi
 			zmienna = 0;
 		}
 		kolejka.erase(kolejka.begin());
 	}
 	else
 	{
-		if (!ruchwindy.empty() && !kolejka.empty())
+		if (!ruchwindy.empty() && !kolejka.empty())       //  tutaj ustala winda, czy ma zatrzymać się po człowieka, czy jednak nie
 		{
 			int i = 0;
 			while (!kolejka.empty() && kolejka.size() > i)
@@ -648,8 +648,8 @@ void ustaw_winda()
 
 void sterowanie(HDC hdc)
 {
-	switch (dzialanie_windy)
-	{
+	switch (dzialanie_windy)             //  ustalenie co ma robić winda, czy stać, czy podjechać na pietro, 
+	{									 //  to, który case to robi, opisane w zadeklarowaniu inta
 	case 0: 
 		bez_ruchu();
 		break;
@@ -670,8 +670,8 @@ void sterowanie(HDC hdc)
 
 void stworz_czlowieka()
 {
-	for (int i = 0; i < kolejka.size(); i++)
-	{
+	for (int i = 0; i < kolejka.size(); i++)                  //   ustalenie odległości pomiędzy ludźmi oczekującymi na windę
+	{														  //   przestrzeń taka sama jak w windzie, co 25 jednostek x
 		if (kolejka[i].x == 0)
 		{
 			int p;
@@ -711,7 +711,7 @@ void stworz_czlowieka()
 			{
 			case 0:
 				p = wartosc0;
-				wartosc0 = wartosc0 + 25;
+				wartosc0 = wartosc0 + 35;
 				break;
 			case 1:
 				p = wartosc1;
@@ -749,7 +749,7 @@ void tablice(HDC hdc, RECT* rect)
 
 	wchar_t pietro[2];
 	pietro[1] = '\0';
-	switch (winda_s.pietro)
+	switch (winda_s.pietro)               //      aktualne piętro windy
 	{
 	case 0:
 		pietro[0] = '0';
@@ -769,7 +769,7 @@ void tablice(HDC hdc, RECT* rect)
 	}
 	graphics.DrawString(pietro, -1, &font1, pointF1, &solidBrush);
 
-	switch (winda_s.kierunek)
+	switch (winda_s.kierunek)                        // kierunek windy (do góry, stoi, na dół)
 	{
 	case -1:
 		graphics.DrawLine(&pen, 910, 20, 915, 30);
@@ -783,7 +783,7 @@ void tablice(HDC hdc, RECT* rect)
 		graphics.DrawLine(&pen, 915, 20, 920, 30);
 	}
 
-	graphics.DrawRectangle(&pen, 900, 50, 80, 55);
+	graphics.DrawRectangle(&pen, 900, 50, 80, 55);                      // tablica z masą (1 człowiek waży 70kg, max to 600kg)
 	PointF pointF2(907, 52);
 	graphics.DrawString(L"Masa", -1, &font1, pointF2, &solidBrush);
 	PointF pointF3(904, 75);
@@ -846,7 +846,7 @@ void MyOnPaint(HDC hdc)
 {
 	Graphics graphics(hdc);
 	Pen pen(Color(255, 0, 0, 255), 2);
-	graphics.DrawRectangle(&pen, 600, 10, 250, 750);
+	graphics.DrawRectangle(&pen, 600, 10, 250, 750);              //   przestrzeń na windę + pietra
 	graphics.DrawLine(&pen, 100, 755, 600, 755);
 	graphics.DrawLine(&pen, 100, 605, 600, 605);
 	graphics.DrawLine(&pen, 100, 455, 600, 455);
@@ -857,7 +857,7 @@ void MyOnPaint(HDC hdc)
 	Font font(&fontFamily, 60, FontStyleRegular, UnitPixel);
 	SolidBrush  solidBrush(Color(255, 0, 0, 0));
 	
-	PointF      pointF(50, 650);
+	PointF      pointF(50, 650);                                    //  oznaczenie pięter
 	graphics.DrawString(L"0", -1, &font, pointF, &solidBrush);
 	PointF      pointF1(50, 500);
 	graphics.DrawString(L"1", -1, &font, pointF1, &solidBrush);
@@ -868,8 +868,8 @@ void MyOnPaint(HDC hdc)
 	PointF      pointF4(50, 50);
 	graphics.DrawString(L"4", -1, &font, pointF4, &solidBrush);
 
-	Pen pen1(Color(255, 255, 0, 0), 3);
-	GraphicsPath path;
+	Pen pen1(Color(255, 255, 0, 0), 3);                   // winda
+	GraphicsPath path; 
 	path.AddLine(603, 645, 844, 645);
 	path.AddLine(844, 645, 844, 755);
 	path.AddLine(603, 755, 844, 755);
@@ -1220,7 +1220,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DestroyWindow(hWnd);
 			break;
 		case ID_BUTTON01:
-			kolejka.push_back({ 0, 1 });
+			kolejka.push_back({ 0, 1 });             //    wrzucamy do kolejki piętro początkowe i końcowe, tworzymy człowieka w odpowiednim miejscu, uruchamiamy windę
 			stworz_czlowieka();
 			InvalidateRect(hWnd, &pietro_0, TRUE);
 			hdc = BeginPaint(hWnd, &ps);
@@ -1399,7 +1399,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				switch (dzialanie_windy)
 				{
-				case 0:
+				case 0:                                // dzialanie windy, jeżeli stoi
 					hdc = BeginPaint(hWnd, &ps);
 					bez_ruchu();
 					if (koniec)
@@ -1409,13 +1409,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						koniec = false;
 					}
 					break;
-				case 1:
+				case 1:                   // winda się rusza
 					zmienna = 0;
 					InvalidateRect(hWnd, &winda_m, TRUE);
 					hdc = BeginPaint(hWnd, &ps);
 					ruch_windy(hdc, &winda_m);
 					break;
-				case 2:
+				case 2:                    // otwieranie drzwi
 					if (zmienna % 9 == 0)
 						ustaw_winda();
 					switch (winda_s.pietro)
@@ -1447,7 +1447,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						dzialanie_windy = 3;
 					}
 					break;
-				case 3:
+				case 3:                 // ludzie wchodzą do windy
 					switch (winda_s.pietro)
 					{
 					case 0:
@@ -1474,7 +1474,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						przesuwanie2();
 					tworzenie_czlowieka(hdc);
 					break;
-				case 4:
+				case 4:                    // drzwi są zamykane
 					if (zmienna % 9 == 0)
 						ustaw_winda();
 					switch (winda_s.pietro)
@@ -1502,12 +1502,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					{
 						zmienna = 0;
 						koniec = false;
-						if (ruchwindy.empty())
+						if (ruchwindy.empty())            // jeżeli winda nigdzie nie ma się ruszać, to zmienia stan na 0
 							dzialanie_windy = 0;
 						else
 						{
 							bool jeszcze = false;
-							for (int i = 0; i < oczekiwanie_winda.size(); i++)
+							for (int i = 0; i < oczekiwanie_winda.size(); i++) // jeżeli oczekiwanie na windę jest na tym samym piętrze, to otwiera drzwi, w innym przypadku rusza 
 							{
 								if (winda_s.pietro == oczekiwanie_winda[i].pietro_poczatkowe)
 								{
@@ -1526,7 +1526,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				InvalidateRect(hWnd, &pietro_ruch_masa, TRUE);
 				hdc = BeginPaint(hWnd, &ps);
-				tablice(hdc, &pietro_ruch_masa);
+				tablice(hdc, &pietro_ruch_masa);     // rysuje tablicę z piętrem, ruchem i masą
 
 				ReleaseDC(hWnd, hdc);
 				EndPaint(hWnd, &ps);

@@ -52,7 +52,7 @@ bool koniec;
 
 bool wolne = false;
 bool zajete[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };                   // 8 miejsc w windzie 
-int miejsce[8] = { 610, 635, 660, 685, 710, 735, 755, 780 };   // tablica intów, miejsca w windzie, czyli pomiędzy ludźmi w windzie jest 25 jednostek
+int miejsce[8] = { 610, 635, 660, 685, 710, 735, 760, 785 };   // tablica intów, miejsca w windzie, czyli pomiędzy ludźmi w windzie jest 25 jednostek
 
 int dzialanie_windy = 0;        // 0 - stoi i sie nie rusza
 								// 1 - ruch

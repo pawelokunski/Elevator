@@ -630,7 +630,7 @@ void ustaw_winda()
 				int kier = kierunek_windy(kolejka[i].pietro_poczatkowe, kolejka[i].pietro_koncowe);
 				bool ustawienie_poczatku = false;
 				bool ustawienie_konca = false;
-				if (kier == ruchwindy[0].kierunek && czlowiek_winda.size() + oczekiwanie_winda.size() < 8)
+				if (kier == ruchwindy[0].kierunek && czlowiek_winda.size() + oczekiwanie_winda.size() < 9)
 				{
 					int k;
 					ustaw_koniec(ustawienie_konca, i, kier, k);

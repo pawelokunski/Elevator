@@ -21,7 +21,7 @@ Wyżej od tablicy z masą znajduje się tablica z aktualnym piętrem oraz ruchem
 Pojedynczy człowiek tworzony jest w ten sposób</br>
 <img align="left" src="Zdjęcia\kod5.jpg"/></br></br></br></br></br></br></br></br></br>
 Ludzie mogą wsiadać do windy, jak i ją opuszczać</br>
-<img align="left" src="Zdjęcia\kod6.jpg"/></br>
+<img align="left" src="Zdjęcia\kod6.jpg"/></br></br>
 <img align="left" src="Zdjęcia\kod7.jpg"/></br>
 
 

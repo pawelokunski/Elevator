@@ -17,7 +17,7 @@ Miejsce w kodzie, które kontroluje windę w ten sposób
 Masa przewożonych pasażerów była widoczna wyżej, więc niżej znajduje się tylko kod </br>
 <img align="left" src="Zdjęcia\kod3.jpg"/></br>
 Wyżej od tablicy z masą znajduje się tablica z aktualnym piętrem oraz ruchem</br>
-<img align="left" src="Zdjęcia\kod4.jpg"/></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<img align="left" src="Zdjęcia\kod4.jpg"/></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 Pojedynczy człowiek tworzony jest w ten sposób</br>
 <img align="left" src="Zdjęcia\kod5.jpg"/></br>
 

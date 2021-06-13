@@ -14,6 +14,8 @@ Winda oczekuje również na piętrze około 5 sekund, jeżeli nikt nie wsiada, t
 <img align="left" src="Zdjęcia\5sek2.jpg"/></br>
 Miejsce w kodzie, które kontroluje windę w ten sposób
 <img align="left" src="Zdjęcia\kod2.jpg"/></br>
+Masa przewożonych pasażerów była widoczna wyżej, więc niżej znajduje się tylko kod </br>
+<img align="left" src="Zdjęcia\kod3.jpg"/></br>
 
 
 

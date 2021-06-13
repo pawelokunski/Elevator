@@ -711,7 +711,7 @@ void stworz_czlowieka()
 			{
 			case 0:
 				p = wartosc0;
-				wartosc0 = wartosc0 + 35;
+				wartosc0 = wartosc0 + 25;
 				break;
 			case 1:
 				p = wartosc1;

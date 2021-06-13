@@ -23,7 +23,9 @@ Pojedynczy człowiek tworzony jest w ten sposób</br>
 Ludzie mogą wsiadać do windy, jak i ją opuszczać</br>
 <img align="left" src="Zdjęcia\kod6.jpg"/></br></br>
 <img align="left" src="Zdjęcia\kod7.jpg"/></br>
-
+Program musi ustalić odpowiedni ruch windy</br>
+<img align="left" src="Zdjęcia\kod8.jpg"/></br>
+<img align="left" src="Zdjęcia\kod9.jpg"/></br>
 
 
 
